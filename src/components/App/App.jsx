@@ -9,16 +9,10 @@ const KEY_CONTACTS = 'contacts';
 const localStorageData = localStorage.getItem(KEY_CONTACTS);
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorageData) ?? []
+  );
   const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    if (!localStorageData) {
-      return;
-    }
-
-    setContacts(JSON.parse(localStorage.getItem(KEY_CONTACTS)));
-  }, []);
 
   useEffect(() => {
     if (contacts.length === 0) {
